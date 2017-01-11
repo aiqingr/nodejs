@@ -1,66 +1,57 @@
 var accounts = [];
 
-//Account Object
-//balance
-//username
-
-//createAccount(account)
-//push onto accounts array
-//return account
 function createAccount (account) {
   accounts.push(account);
   return account;
 }
 
-//getAccount(username)
-//find matching account using forEach
 function getAccount (username) {
   var matchedAccount;
 
-  accounts.forEach(function (account){
-    if (account.username === username) {
-      matchedAccount = account;
+  for (var i = 0; i < accounts.length; i++) {
+    if (accounts[i].username === username) {
+      matchedAccount = accounts[i];
     }
-  });
+  }
 
   return matchedAccount;
 }
 
-//deposit(account, amount)
 function deposit (account, amount) {
-  account.balance += amount;
-  //account.balance = account.balance + amount;
+  if (typeof amount === 'number') {
+    account.balance += amount;
+  } else {
+    console.log('deposit failed, amount is not a number!');
+  }
 }
 
-//withdraw(account, amount)
 function withdraw (account, amount) {
-  account.balance -= amount;
+  if (typeof amount === 'number') {
+    account.balance -= amount;
+  } else {
+    console.log('Withdraw failed, amount is not a number!');
+  }
 }
-//getBalance(account)
+
 function getBalance (account) {
   return account.balance;
 }
 
-var yoyoAccount = createAccount({
+function createrBalanceGetter (account) {
+  return function () {
+    return account.balance;
+  }
+}
+
+var yoyo = createAccount({
   username: 'yoyo',
   balance: 0
 });
 
-deposit(yoyoAccount, 100);
-console.log(getBalance(yoyoAccount));
+deposit(yoyo, 120);
+withdraw(yoyo, 'my string');
 
-withdraw(yoyoAccount, 11);
-console.log(getBalance(yoyoAccount));
+var yoyoL = getAccount('yoyo');
+var getYoyoLBalance = createrBalanceGetter(yoyoL);
 
-var existingAccount = getAccount('yoyo');
-console.log(getBalance(yoyoAccount));
-
-var tianAccount = createAccount({
-  username: 'tianqi',
-  balance: 12
-});
-
-console.log(accounts);
-
-var existingTianAccount = getAccount('tianqi');
-console.log(existingTianAccount);
+console.log(getYoyoLBalance());
