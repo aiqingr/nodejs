@@ -6,7 +6,7 @@ storage.initSync();
 
 var argv = require('yargs')
   .command('create', 'Create a new account', function (yargs) {
-    yargs.option({
+    yargs.options({
       name: {
         demand: true,
         alias: 'n',
@@ -34,7 +34,7 @@ var argv = require('yargs')
     }).help('help');
   })
   .command('get', 'Get an existing account', function (yargs) {
-    yargs.option({
+    yargs.options({
       name: {
         demand: true,
         alias: 'n',
@@ -111,12 +111,14 @@ if (command === 'create') {
     username: argv.username,
     password: argv.password
   }, argv.masterPassword);
-  console.log('Account created: ', createdAccount);
+  console.log('Account created!');
+  console.log(createdAccount);
 } else if (command === 'get') {
   var fetchedAccount = getAccount(argv.name, argv.masterPassword);
   if (typeof fetchedAccount === 'undefined') {
     console.log('Account not found');
   } else {
-    console.log('Account found: ', fetchedAccount);
+    console.log('Account found!')
+    console.log(fetchedAccount);
   }
 }
