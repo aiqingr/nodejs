@@ -8,12 +8,7 @@ module.exports = function (callback) {
   }, function (error, response, body) {
     if (error) {
       callback();
-      //callback('Unable to fetch the ip address.');
     } else {
-      //console.log(JSON.stringify(body, null, 4));
-      // It's 28.4 in Beijing
-      //callback('city: ' + location.city);
-      //callback('log/lat: ' + location.loc);
       callback(body);
     }
   });
